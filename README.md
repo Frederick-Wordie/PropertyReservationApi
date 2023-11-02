@@ -12,6 +12,7 @@ This document provides documentation for the reservation service api. You can us
 - A block is when the property owner or manager selects a range of days during which no guest can make a booking
 - The user can make a booking, update a booking or delete a book.
 - Property owners can also block a property, update or delete it
+- Blockings are allowed to overlap. However you cannot block a period which is already booked.
 - The application is pre-loaded with sample property objects which can be seen using the get property endpoint. The uuid of the properties can be used in the booking and blocking request
 - Necessary validation is incorporated within the API that prevents illogical operations from occurring such as making an overlapping reservation to a property.
 
@@ -24,7 +25,7 @@ This document provides documentation for the reservation service api. You can us
 
 
 
-1. **Endpoints for Booking**:
+2. **Endpoints for Booking**:
    
 | Method | Endpoint | Description | Valid API Calls |
 | ------ | --- | ----------- | ------------------------- |
@@ -34,7 +35,7 @@ This document provides documentation for the reservation service api. You can us
 | DELETE | /reservationapi/v1/booking/{bookingId} | Delete booking by its ID | [Delete-booking](#delete-booking) |
 
 
-2. **Endpoints for Blocking**:
+3. **Endpoints for Blocking**:
    
 | Method | Endpoint | Description | Valid API Calls |
 | ------ | --- | ----------- | ------------------------- |
@@ -42,6 +43,17 @@ This document provides documentation for the reservation service api. You can us
 | PATCH | /reservationapi/v1/block/{blockingId} | Updates an existing blocking | [Update existing Blocks](#update-existing-blocking) |
 | GET | /reservationapi/v1/blocks | Get all existing blockings | [Get all existing blockings](#get-all-existing-blockings) |
 | DELETE | /reservationapi/v1/block/{blockingId} | Delete blocking by its ID | [Delete-block](#delete-block) |
+
+
+## Property Endpoint
+
+### get-all-existing-properties
+
+Get all properties.
+
+- Parameter: No parameter will be needed. 
+- Returns all property objects
+
 
 
 
@@ -56,10 +68,10 @@ Create a booking object
 - Request Body:
    ```json
       {    
-       "guests": integer: (Must be one or more),
+       "guests": "integer: (Must be one or more)",
        "propertyId": "string: (exiting uuid of a property)",
        "startDate": "yyyy-MM-dd",
-	    "endDate": "yyyy-MM-dd",
+	   "endDate": "yyyy-MM-dd",
        "state": "String: (BOOKED, CANCELED)"
       }
    ```
@@ -74,10 +86,10 @@ Bookings are not allowed to overlap
 - Request Body:
    ```json
       {    
-       "guests": integer: (Must be one or more),
+       "guests": "integer: (Must be one or more)",
        "propertyId": "string: (exiting uuid of a property)",
        "startDate": "yyyy-MM-dd",
-	    "endDate": "yyyy-MM-dd",
+	   "endDate": "yyyy-MM-dd",
        "state": "String: (BOOKED, CANCELED)"
       }
    ```
@@ -90,9 +102,9 @@ Get all existing bookings
 
 #### Request
 
-```http
-No parameters are needed
- ```
+
+- No parameters are needed. Returns all bookings
+ 
  
 ### delete-booking
 
@@ -103,6 +115,8 @@ Delete booking by its ID
 ```http
 string: (uuid of booking in path) 
  ```
+ 
+ 
  
  
 ## Blocking Endpoints
@@ -118,7 +132,7 @@ Create a blocking object
        {      
         "propertyId": "string: (uuid of property)",
         "reason": "string",
-        "startDate": "yyyy-MM-dd"
+        "startDate": "yyyy-MM-dd",
 		"endDate": "yyyy-MM-dd",
       }
    ```
@@ -127,7 +141,7 @@ Create a blocking object
 
 ### update-existing-blocking
 
-Updates an existing block
+Updates an existing block. 
 
 #### Request
 
@@ -136,7 +150,7 @@ Updates an existing block
        {      
         "propertyId": "string: (uuid of property)",
         "reason": "string",
-        "startDate": "yyyy-MM-dd"
+        "startDate": "yyyy-MM-dd",
 		"endDate": "yyyy-MM-dd",
       }
    ```
@@ -147,9 +161,8 @@ Get all existing blockings
 
 #### Request
 
-```http
-No parameters are needed
- ```
+- No parameters are needed
+ 
  
 ### delete-block
 
