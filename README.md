@@ -31,9 +31,9 @@ This document provides documentation for the reservation service api. You can us
 | Method | Endpoint | Description | Valid API Calls |
 | ------ | --- | ----------- | ------------------------- |
 | POST | /reservationapi/v1/block | Create a blocking object | [Create blocking](#create-blocking) |
-| PATCH | /reservationapi/v1/block/{blockingId} | Updates an existing blocking | [Update existing Booking](#update-existing-blocking) |
-| GET | /reservationapi/v1/blocks | Get all existing blockings | [Get all existing bookings](#get-all-existing-blockings) |
-| DELETE | /reservationapi/v1/block/{blockingId} | Delete blocking by its ID | [Delete-booking](#delete-block) |
+| PATCH | /reservationapi/v1/block/{blockingId} | Updates an existing blocking | [Update existing Blocks](#update-existing-blocking) |
+| GET | /reservationapi/v1/blocks | Get all existing blockings | [Get all existing blockings](#get-all-existing-blockings) |
+| DELETE | /reservationapi/v1/block/{blockingId} | Delete blocking by its ID | [Delete-block](#delete-block) |
 
 
 
@@ -66,7 +66,7 @@ Get all existing bookings
 #### Request
 
 ```http
-get /api/endpoint-3
+GET /api/endpoint-3
  ```
  
 ### delete-booking
@@ -109,7 +109,7 @@ Get all existing blockings
 #### Request
 
 ```http
-get /api/endpoint-7
+GET /api/endpoint-7
  ```
  
 ### delete-block
