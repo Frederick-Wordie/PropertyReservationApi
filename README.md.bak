@@ -80,9 +80,9 @@ DELETE /api/endpoint-4
  ```
  
  
-## Blocking Endpoints
+ ## Blocking Endpoints
  
-### create-block
+ ### create-block
 
 Create a blocking object
 
