@@ -43,11 +43,18 @@ This document provides documentation for the reservation service api. You can us
 
 Create a booking object
 
-#### Request
+#### Booking Request Body
 
-```http
-POST /api/endpoint-1 
- ```
+- Request Body:
+   ```json
+      {    
+       "guests": integer: (Must be one or more),
+       "propertyId": "string: (exiting uuid of a property)",
+       "startDate": "yyyy-MM-dd",
+	    "endDate": "yyyy-MM-dd",
+       "state": "String: (BOOKED, CANCELED)"
+      }
+   ```
 
 ### update-existing-booking
 
@@ -66,7 +73,7 @@ Get all existing bookings
 #### Request
 
 ```http
-get /api/endpoint-3
+GET /api/endpoint-3
  ```
  
 ### delete-booking
@@ -109,7 +116,7 @@ Get all existing blockings
 #### Request
 
 ```http
-get /api/endpoint-7
+GET /api/endpoint-7
  ```
  
 ### delete-block

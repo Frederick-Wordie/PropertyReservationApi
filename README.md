@@ -12,7 +12,15 @@ This document provides documentation for the reservation service api. You can us
 - A block is when the property owner or manager selects a range of days during which no guest can make a booking
 - The user can make a booking, update a booking or delete a book.
 - Property owners can also block a property, update or delete it
+- The application is pre-loaded with sample property objects which can be seen using the get property endpoint. The uuid of the properties can be used in the booking and blocking request
 - Necessary validation is incorporated within the API that prevents illogical operations from occurring such as making an overlapping reservation to a property.
+
+
+1. **Endpoints for Property**:
+   
+| Method | Endpoint | Description | Valid API Calls |
+| ------ | --- | ----------- | ------------------------- |
+| GET | /reservationapi/v1/properties | Get all existing properties | [Get all existing properties](#get-all-existing-properties) |
 
 
 
@@ -43,21 +51,38 @@ This document provides documentation for the reservation service api. You can us
 
 Create a booking object
 
-#### Request
+#### Booking Request Body
 
-```http
-POST /api/endpoint-1 
- ```
+- Request Body:
+   ```json
+      {    
+       "guests": integer: (Must be one or more),
+       "propertyId": "string: (exiting uuid of a property)",
+       "startDate": "yyyy-MM-dd",
+	    "endDate": "yyyy-MM-dd",
+       "state": "String: (BOOKED, CANCELED)"
+      }
+   ```
 
 ### update-existing-booking
 
-Updates an existing booking
+Updates an existing booking. Dates must be in the specified formats. State is set to canceled when a user wants to cancel a booking.
+Bookings are not allowed to overlap
 
-#### Request
+#### Request Body
 
-```http
-PATCH /api/endpoint-2
-```
+- Request Body:
+   ```json
+      {    
+       "guests": integer: (Must be one or more),
+       "propertyId": "string: (exiting uuid of a property)",
+       "startDate": "yyyy-MM-dd",
+	    "endDate": "yyyy-MM-dd",
+       "state": "String: (BOOKED, CANCELED)"
+      }
+   ```
+
+
 
 ### get-all-existing-bookings
 
@@ -66,7 +91,7 @@ Get all existing bookings
 #### Request
 
 ```http
-GET /api/endpoint-3
+No parameters are needed
  ```
  
 ### delete-booking
@@ -76,7 +101,7 @@ Delete booking by its ID
 #### Request
 
 ```http
-DELETE /api/endpoint-4
+string: (uuid of booking in path) 
  ```
  
  
@@ -88,9 +113,17 @@ Create a blocking object
 
 #### Request
 
-```http
-POST /api/endpoint-5 
- ```
+- Request Body:
+   ```json
+       {      
+        "propertyId": "string: (uuid of property)",
+        "reason": "string",
+        "startDate": "yyyy-MM-dd"
+		"endDate": "yyyy-MM-dd",
+      }
+   ```
+ 
+
 
 ### update-existing-blocking
 
@@ -98,9 +131,15 @@ Updates an existing block
 
 #### Request
 
-```http
-PATCH /api/endpoint-6
-```
+- Request Body:
+   ```json
+       {      
+        "propertyId": "string: (uuid of property)",
+        "reason": "string",
+        "startDate": "yyyy-MM-dd"
+		"endDate": "yyyy-MM-dd",
+      }
+   ```
 
 ### get-all-existing-blockings
 
@@ -109,7 +148,7 @@ Get all existing blockings
 #### Request
 
 ```http
-GET /api/endpoint-7
+No parameters are needed
  ```
  
 ### delete-block
@@ -119,8 +158,21 @@ Delete blocking by its ID
 #### Request
 
 ```http
-DELETE /api/endpoint-8
+string: (uuid of block in path) 
  ```
+ 
+ # Tech Stack
+
+- API Creation:
+  - Java 11
+  - H2 Database
+  - SpringBoot
+  - JPA
+  - Lombok
+
+- User Input Testing:
+  - Swagger UI
+  - Postman
 
 
 
